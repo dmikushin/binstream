@@ -1,9 +1,7 @@
-// TestBinStream.cpp : Defines the entry point for the console application.
-//
-
 #include <iostream>
-#include "SimpleBinStream.h"
-#include "CustomOperators.h"
+
+#include "binstream/binstream.h"
+#include "binstream_custom.h"
 
 void TestMissingString();
 void TestMem();

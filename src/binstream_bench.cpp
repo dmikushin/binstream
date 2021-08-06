@@ -1,13 +1,10 @@
-// Benchmark.cpp : Defines the entry point for the console application.
-//
-
 #include <string>
 #include <iomanip>
 #include <iostream>
 #include <chrono>
 #include <vector>
-#include "../TestBinStream/SimpleBinStream.h"
-#include "OldSimpleBinStream.h"
+
+#include "binstream/binstream.h"
 
 #ifdef WIN32
 
@@ -59,9 +56,8 @@ void init(std::vector<Product>& vec);
 
 int main(int argc, char *argv[])
 {
-	const std::string old_file = "F:\\old_products.txt";
-	const std::string new_file = "F:\\new_products.txt";
-	const std::string mem_file = "F:\\mem_products.txt";
+	const std::string new_file = "new_products.txt";
+	const std::string mem_file = "mem_products.txt";
 
 	const size_t MAX_LOOP = (argc == 2) ? atoi(argv[1]) : 100000;
 
@@ -74,48 +70,6 @@ int main(int argc, char *argv[])
 
 	// file stream benchmark
 	//=========================
-	{
-		using namespace old;
-
-		file_ostream<std::true_type> os(old_file.c_str());
-
-		if (os.is_open())
-		{
-			stopwatch.start("old::file_ostream");
-			for (size_t k = 0; k < MAX_LOOP; ++k)
-			{
-				for (size_t i = 0; i < vec.size(); ++i)
-				{
-					const Product& product = vec[i];
-					os << product.name << product.qty << product.price;
-					do_not_optimize_away(result.c_str());
-				}
-			}
-			stopwatch.stop();
-		}
-		os.flush();
-		os.close();
-
-		file_istream<std::true_type> is(old_file.c_str());
-
-		if (is.is_open())
-		{
-			Product product;
-			stopwatch.start("old::file_istream");
-			try
-			{
-				while (!is.eof())
-				{
-					is >> product.name >> product.qty >> product.price;
-				}
-			}
-			catch (std::runtime_error& e)
-			{
-				fprintf(stderr, "%s\n", e.what());
-			}
-			stopwatch.stop();
-		}
-	}
 	{
 		using namespace simple;
 

@@ -1,7 +1,5 @@
-
 #include <vector>
 #include <string>
-#include "SimpleBinStream.h"
 
 struct Product
 {
