@@ -4,7 +4,7 @@ Bare minimal header-only binary stream based on C++ file streams where the strea
 
 ```cpp
 #include <iostream>
-#include "SimpleBinStream.h"
+#include "binstream.h"
 
 // Testing memory stream
 void TestMem()
