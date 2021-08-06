@@ -31,7 +31,7 @@
 #include <stdint.h>
 #include <cstdio>
 
-namespace simple
+namespace binstream
 {
 	enum class Endian
 	{
@@ -249,7 +249,7 @@ public:
 			throw std::runtime_error("Read Error!");
 		}
 		read_length += sizeof(T);
-		simple::swap_endian_if_same_endian_is_false(t, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t, m_same_type);
 	}
 	void read(typename std::vector<char>& vec)
 	{
@@ -380,7 +380,7 @@ public:
 
 		std::memcpy(reinterpret_cast<void*>(&t), &m_vec[m_index], sizeof(T));
 
-		simple::swap_endian_if_same_endian_is_false(t, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t, m_same_type);
 
 		m_index += sizeof(T);
 	}
@@ -521,7 +521,7 @@ public:
 
 		std::memcpy(reinterpret_cast<void*>(&t), &m_arr[m_index], sizeof(T));
 
-		simple::swap_endian_if_same_endian_is_false(t, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t, m_same_type);
 
 		m_index += sizeof(T);
 	}
@@ -700,7 +700,7 @@ public:
 
 		std::memcpy(reinterpret_cast<void*>(&t), &m_arr[m_index], sizeof(T));
 
-		simple::swap_endian_if_same_endian_is_false(t, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t, m_same_type);
 
 		m_index += sizeof(T);
 	}
@@ -840,7 +840,7 @@ public:
 	void write(const T& t)
 	{
 		T t2 = t;
-		simple::swap_endian_if_same_endian_is_false(t2, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t2, m_same_type);
 		std::fwrite(reinterpret_cast<const void*>(&t2), sizeof(T), 1, output_file_ptr);
 	}
 	void write(const std::vector<char>& vec)
@@ -911,7 +911,7 @@ public:
 	{
 		std::vector<char> vec(sizeof(T));
 		T t2 = t;
-		simple::swap_endian_if_same_endian_is_false(t2, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t2, m_same_type);
 		std::memcpy(reinterpret_cast<void*>(&vec[0]), reinterpret_cast<const void*>(&t2), sizeof(T));
 		write(vec);
 	}
@@ -929,7 +929,7 @@ public:
 	{
 		std::vector<char> vec(sizeof(T));
 		T t2 = t;
-		simple::swap_endian_if_same_endian_is_false(t2, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t2, m_same_type);
 		std::memcpy(reinterpret_cast<void*>(&vec[0]), reinterpret_cast<const void*>(&t2), sizeof(T));
 		writeat(pos, vec);
 	}
@@ -998,7 +998,7 @@ public:
 	{
 		std::vector<char> vec(sizeof(T));
 		T t2 = t;
-		simple::swap_endian_if_same_endian_is_false(t2, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t2, m_same_type);
 		std::memcpy(reinterpret_cast<void*>(&vec[0]), reinterpret_cast<const void*>(&t2), sizeof(T));
 		write(vec);
 	}
@@ -1016,7 +1016,7 @@ public:
 	{
 		std::vector<char> vec(sizeof(T));
 		T t2 = t;
-		simple::swap_endian_if_same_endian_is_false(t2, m_same_type);
+		binstream::swap_endian_if_same_endian_is_false(t2, m_same_type);
 		std::memcpy(reinterpret_cast<void*>(&vec[0]), reinterpret_cast<const void*>(&t2), sizeof(T));
 		writeat(pos, vec);
 	}
@@ -1102,6 +1102,6 @@ template<typename same_endian_type>
 	return ostm;
 }
 
-} // ns simple
+} // ns binstream
 
 #endif // BINSTREAM_H

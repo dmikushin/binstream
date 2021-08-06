@@ -11,49 +11,49 @@ struct Product
 };
 
 template<typename same_endian_type>
-typename simple::mem_istream<same_endian_type>& operator >> ( simple::mem_istream<same_endian_type>& istm, Product& val)
+typename binstream::mem_istream<same_endian_type>& operator >> ( binstream::mem_istream<same_endian_type>& istm, Product& val)
 {
 	return istm >> val.product_name >> val.price >> val.qty;
 }
 
 template<typename same_endian_type>
-typename simple::ptr_istream<same_endian_type>& operator >> ( simple::ptr_istream<same_endian_type>& istm, Product& val)
+typename binstream::ptr_istream<same_endian_type>& operator >> ( binstream::ptr_istream<same_endian_type>& istm, Product& val)
 {
 	return istm >> val.product_name >> val.price >> val.qty;
 }
 
 template<typename same_endian_type>
-typename simple::file_istream<same_endian_type>& operator >> ( simple::file_istream<same_endian_type>& istm, Product& val)
+typename binstream::file_istream<same_endian_type>& operator >> ( binstream::file_istream<same_endian_type>& istm, Product& val)
 {
 	return istm >> val.product_name >> val.price >> val.qty;
 }
 
 template<typename same_endian_type>
-typename simple::memfile_istream<same_endian_type>& operator >> ( simple::memfile_istream<same_endian_type>& istm, Product& val)
+typename binstream::memfile_istream<same_endian_type>& operator >> ( binstream::memfile_istream<same_endian_type>& istm, Product& val)
 {
 	return istm >> val.product_name >> val.price >> val.qty;
 }
 
 template<typename same_endian_type>
-typename simple::mem_ostream<same_endian_type>& operator << ( simple::mem_ostream<same_endian_type>& ostm, const Product& val)
+typename binstream::mem_ostream<same_endian_type>& operator << ( binstream::mem_ostream<same_endian_type>& ostm, const Product& val)
 {
 	return ostm << val.product_name << val.price << val.qty;
 }
 
 template<typename same_endian_type>
-typename simple::file_ostream<same_endian_type>& operator << ( simple::file_ostream<same_endian_type>& ostm, const Product& val)
+typename binstream::file_ostream<same_endian_type>& operator << ( binstream::file_ostream<same_endian_type>& ostm, const Product& val)
 {
 	return ostm << val.product_name << val.price << val.qty;
 }
 
 template<typename same_endian_type>
-typename simple::memfile_ostream<same_endian_type>& operator << ( simple::memfile_ostream<same_endian_type>& ostm, const Product& val)
+typename binstream::memfile_ostream<same_endian_type>& operator << ( binstream::memfile_ostream<same_endian_type>& ostm, const Product& val)
 {
 	return ostm << val.product_name << val.price << val.qty;
 }
 
 template<typename same_endian_type>
-typename simple::mem_istream<same_endian_type>& operator >> ( simple::mem_istream<same_endian_type>& istm, std::vector<Product>& vec)
+typename binstream::mem_istream<same_endian_type>& operator >> ( binstream::mem_istream<same_endian_type>& istm, std::vector<Product>& vec)
 {
 	int size=0;
 	istm >> size;
@@ -72,7 +72,7 @@ typename simple::mem_istream<same_endian_type>& operator >> ( simple::mem_istrea
 }
 
 template<typename same_endian_type>
-typename simple::ptr_istream<same_endian_type>& operator >> ( simple::ptr_istream<same_endian_type>& istm, std::vector<Product>& vec)
+typename binstream::ptr_istream<same_endian_type>& operator >> ( binstream::ptr_istream<same_endian_type>& istm, std::vector<Product>& vec)
 {
 	int size = 0;
 	istm >> size;
@@ -91,7 +91,7 @@ typename simple::ptr_istream<same_endian_type>& operator >> ( simple::ptr_istrea
 }
 
 template<typename same_endian_type>
-typename simple::file_istream<same_endian_type>& operator >> ( simple::file_istream<same_endian_type>& istm, std::vector<Product>& vec)
+typename binstream::file_istream<same_endian_type>& operator >> ( binstream::file_istream<same_endian_type>& istm, std::vector<Product>& vec)
 {
 	int size=0;
 	istm >> size;
@@ -110,7 +110,7 @@ typename simple::file_istream<same_endian_type>& operator >> ( simple::file_istr
 }
 
 template<typename same_endian_type>
-typename simple::memfile_istream<same_endian_type>& operator >> ( simple::memfile_istream<same_endian_type>& istm, std::vector<Product>& vec)
+typename binstream::memfile_istream<same_endian_type>& operator >> ( binstream::memfile_istream<same_endian_type>& istm, std::vector<Product>& vec)
 {
 	int size = 0;
 	istm >> size;
@@ -129,7 +129,7 @@ typename simple::memfile_istream<same_endian_type>& operator >> ( simple::memfil
 }
 
 template<typename same_endian_type>
-typename simple::mem_ostream<same_endian_type>& operator << (simple::mem_ostream<same_endian_type>& ostm, const std::vector<Product>& vec)
+typename binstream::mem_ostream<same_endian_type>& operator << (binstream::mem_ostream<same_endian_type>& ostm, const std::vector<Product>& vec)
 {
 	int size = vec.size();
 	ostm << size;
@@ -142,7 +142,7 @@ typename simple::mem_ostream<same_endian_type>& operator << (simple::mem_ostream
 }
 
 template<typename same_endian_type>
-typename simple::file_ostream<same_endian_type>& operator << ( simple::file_ostream<same_endian_type>& ostm, const std::vector<Product>& vec)
+typename binstream::file_ostream<same_endian_type>& operator << ( binstream::file_ostream<same_endian_type>& ostm, const std::vector<Product>& vec)
 {
 	int size = vec.size();
 	ostm << size;
@@ -155,7 +155,7 @@ typename simple::file_ostream<same_endian_type>& operator << ( simple::file_ostr
 }
 
 template<typename same_endian_type>
-typename simple::memfile_ostream<same_endian_type>& operator << ( simple::memfile_ostream<same_endian_type>& ostm, const std::vector<Product>& vec)
+typename binstream::memfile_ostream<same_endian_type>& operator << ( binstream::memfile_ostream<same_endian_type>& ostm, const std::vector<Product>& vec)
 {
 	int size = vec.size();
 	ostm << size;

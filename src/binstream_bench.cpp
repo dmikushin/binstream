@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 	// file stream benchmark
 	//=========================
 	{
-		using namespace simple;
+		using namespace binstream;
 
 		file_ostream<std::true_type> os(new_file.c_str());
 
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
 		is.close();
 	}
 	{
-		using namespace simple;
+		using namespace binstream;
 
 		memfile_ostream<std::true_type> os;
 
@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
 	}
 
 	{
-		using namespace simple;
+		using namespace binstream;
 
 		mem_ostream<std::true_type> os;
 

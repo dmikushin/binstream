@@ -52,10 +52,10 @@ int main(int argc, char* argv[])
 
 void TestMem()
 {
-	simple::mem_ostream<std::true_type> out;
+	binstream::mem_ostream<std::true_type> out;
 	out << 23 << 24 << "Hello world!";
 
-	simple::mem_istream<std::true_type> in(out.get_internal_vec());
+	binstream::mem_istream<std::true_type> in(out.get_internal_vec());
 	int num1 = 0, num2 = 0;
 	std::string str;
 	in >> num1 >> num2 >> str;
@@ -65,10 +65,10 @@ void TestMem()
 
 void TestMissingString()
 {
-	simple::mem_ostream<std::true_type> out;
+	binstream::mem_ostream<std::true_type> out;
 	out << "Jack" << "" << "Hello world!";
 
-	simple::mem_istream<std::true_type> in(out.get_internal_vec());
+	binstream::mem_istream<std::true_type> in(out.get_internal_vec());
 	std::string str;
 	in >> str;
 	cout << str << ",";
@@ -80,11 +80,11 @@ void TestMissingString()
 
 void TestMemPtr()
 {
-	using same_endian_type = std::is_same<simple::LittleEndian, simple::BigEndian>;
-	simple::mem_ostream<same_endian_type> out;
+	using same_endian_type = std::is_same<binstream::LittleEndian, binstream::BigEndian>;
+	binstream::mem_ostream<same_endian_type> out;
 	out << (int64_t)23 << (int64_t)24 << "Hello world!";
 
-	simple::ptr_istream<same_endian_type> in(out.get_internal_vec());
+	binstream::ptr_istream<same_endian_type> in(out.get_internal_vec());
 	int64_t num1 = 0, num2 = 0;
 	std::string str;
 	in >> num1 >> num2 >> str;
@@ -94,12 +94,12 @@ void TestMemPtr()
 
 void TestFile()
 {
-	simple::file_ostream<std::true_type> out("file.bin");
+	binstream::file_ostream<std::true_type> out("file.bin");
 	out << 23 << 24 << "Hello world!";
 	out.flush();
 	out.close();
 
-	simple::file_istream<std::true_type> in("file.bin");
+	binstream::file_istream<std::true_type> in("file.bin");
 	int num1 = 0, num2 = 0;
 	std::string str;
 	in >> num1 >> num2 >> str;
@@ -109,11 +109,11 @@ void TestFile()
 
 void TestMemFile()
 {
-	simple::memfile_ostream<std::true_type> out;
+	binstream::memfile_ostream<std::true_type> out;
 	out << 23 << 24 << "Hello world!";
 	out.write_to_file("file2.bin");
 
-	simple::memfile_istream<std::true_type> in("file2.bin");
+	binstream::memfile_istream<std::true_type> in("file2.bin");
 	int num1 = 0, num2 = 0;
 	std::string str;
 	in >> num1 >> num2 >> str;
@@ -127,10 +127,10 @@ void TestMemCustomOperatorsOnVec()
 	vec_src.push_back(Product("Book", 10.0f, 50));
 	vec_src.push_back(Product("Phone", 25.0f, 20));
 	vec_src.push_back(Product("Pillow", 8.0f, 10));
-	simple::mem_ostream<std::true_type> out;
+	binstream::mem_ostream<std::true_type> out;
 	out << vec_src;
 
-	simple::mem_istream<std::true_type> in(out.get_internal_vec());
+	binstream::mem_istream<std::true_type> in(out.get_internal_vec());
 	std::vector<Product> vec_dest;
 	in >> vec_dest;
 
@@ -143,10 +143,10 @@ void TestMemPtrCustomOperatorsOnVec()
 	vec_src.push_back(Product("Book", 10.0f, 50));
 	vec_src.push_back(Product("Phone", 25.0f, 20));
 	vec_src.push_back(Product("Pillow", 8.0f, 10));
-	simple::mem_ostream<std::true_type> out;
+	binstream::mem_ostream<std::true_type> out;
 	out << vec_src;
 
-	simple::ptr_istream<std::true_type> in(out.get_internal_vec());
+	binstream::ptr_istream<std::true_type> in(out.get_internal_vec());
 	std::vector<Product> vec_dest;
 	in >> vec_dest;
 
@@ -159,12 +159,12 @@ void TestFileCustomOperatorsOnVec()
 	vec_src.push_back(Product("Book", 10.0f, 50));
 	vec_src.push_back(Product("Phone", 25.0f, 20));
 	vec_src.push_back(Product("Pillow", 8.0f, 10));
-	simple::file_ostream<std::true_type> out("file.bin");
+	binstream::file_ostream<std::true_type> out("file.bin");
 	out << vec_src;
 	out.flush();
 	out.close();
 
-	simple::file_istream<std::true_type> in("file.bin");
+	binstream::file_istream<std::true_type> in("file.bin");
 	std::vector<Product> vec_dest;
 	in >> vec_dest;
 
@@ -177,11 +177,11 @@ void TestMemFileCustomOperatorsOnVec()
 	vec_src.push_back(Product("Book", 10.0f, 50));
 	vec_src.push_back(Product("Phone", 25.0f, 20));
 	vec_src.push_back(Product("Pillow", 8.0f, 10));
-	simple::memfile_ostream<std::true_type> out;
+	binstream::memfile_ostream<std::true_type> out;
 	out << vec_src;
 	out.write_to_file("file4.bin");
 
-	simple::memfile_istream<std::true_type> in("file4.bin");
+	binstream::memfile_istream<std::true_type> in("file4.bin");
 	std::vector<Product> vec_dest;
 	in >> vec_dest;
 
@@ -190,11 +190,11 @@ void TestMemFileCustomOperatorsOnVec()
 
 void TestMemCustomOperators()
 {
-	simple::mem_ostream<std::true_type> out;
+	binstream::mem_ostream<std::true_type> out;
 	out << Product("Book", 10.0f, 50);
 	out << Product("Phone", 25.0f, 20);
 
-	simple::mem_istream<std::true_type> in(out.get_internal_vec());
+	binstream::mem_istream<std::true_type> in(out.get_internal_vec());
 	Product product;
 	in >> product;
 	print_product(product);
@@ -204,11 +204,11 @@ void TestMemCustomOperators()
 
 void TestMemPtrCustomOperators()
 {
-	simple::mem_ostream<std::true_type> out;
+	binstream::mem_ostream<std::true_type> out;
 	out << Product("Book", 10.0f, 50);
 	out << Product("Phone", 25.0f, 20);
 
-	simple::ptr_istream<std::true_type> in(out.get_internal_vec());
+	binstream::ptr_istream<std::true_type> in(out.get_internal_vec());
 	Product product;
 	in >> product;
 	print_product(product);
@@ -218,13 +218,13 @@ void TestMemPtrCustomOperators()
 
 void TestFileCustomOperators()
 {
-	simple::file_ostream<std::true_type> out("file2.bin");
+	binstream::file_ostream<std::true_type> out("file2.bin");
 	out << Product("Book", 10.0f, 50);
 	out << Product("Phone", 25.0f, 20);
 	out.flush();
 	out.close();
 
-	simple::file_istream<std::true_type> in("file2.bin");
+	binstream::file_istream<std::true_type> in("file2.bin");
 	Product product;
 	in >> product;
 	print_product(product);
@@ -234,12 +234,12 @@ void TestFileCustomOperators()
 
 void TestMemFileCustomOperators()
 {
-	simple::memfile_ostream<std::true_type> out;
+	binstream::memfile_ostream<std::true_type> out;
 	out << Product("Book", 10.0f, 50);
 	out << Product("Phone", 25.0f, 20);
 	out.write_to_file("file3.bin");
 
-	simple::memfile_istream<std::true_type> in("file3.bin");
+	binstream::memfile_istream<std::true_type> in("file3.bin");
 	Product product;
 	in >> product;
 	print_product(product);

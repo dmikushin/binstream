@@ -9,10 +9,10 @@ Bare minimal header-only binary stream based on C++ file streams where the strea
 // Testing memory stream
 void TestMem()
 {
-    simple::mem_ostream out;
+    binstream::mem_ostream out;
     out << 23 << 24 << "Hello world!";
 
-    simple::mem_istream in(out.get_internal_vec());
+    binstream::mem_istream in(out.get_internal_vec());
     int num1 = 0, num2 = 0;
     std::string str;
     in >> num1 >> num2 >> str;
@@ -23,12 +23,12 @@ void TestMem()
 // Testing file stream
 void TestFile()
 {
-    simple::file_ostream out("file.bin", std::ios_base::out | std::ios_base::binary);
+    binstream::file_ostream out("file.bin", std::ios_base::out | std::ios_base::binary);
     out << 23 << 24 << "Hello world!";
     out.flush();
     out.close();
 
-    simple::file_istream in("file.bin", std::ios_base::in | std::ios_base::binary);
+    binstream::file_istream in("file.bin", std::ios_base::in | std::ios_base::binary);
     int num1 = 0, num2 = 0;
     std::string str;
     in >> num1 >> num2 >> str;
@@ -60,15 +60,15 @@ template<typename same_endian_type>
 class mem_ostream  {...}
 ```
 
-How to pass in same_endian_type to the class? Use std::is_same<>.
+How to pass in `same_endian_type` to the class? Use `std::is_same<>`.
 
 ```cpp
 // 1st parameter is data endian and 2 parameter is platform endian, if they are different, swap.
-using same_endian_type = std::is_same<simple::BigEndian, simple::LittleEndian>;
-simple::mem_ostream<same_endian_type> out;
+using same_endian_type = std::is_same<binstream::BigEndian, binstream::LittleEndian>;
+binstream::mem_ostream<same_endian_type> out;
 out << (int64_t)23 << (int64_t)24 << "Hello world!";
 
-simple::ptr_istream<same_endian_type> in(out.get_internal_vec());
+binstream::ptr_istream<same_endian_type> in(out.get_internal_vec());
 int64_t num1 = 0, num2 = 0;
 std::string str;
 in >> num1 >> num2 >> str;
@@ -76,13 +76,13 @@ in >> num1 >> num2 >> str;
 cout << num1 << "," << num2 << "," << str << endl;
 ```
 
-If your data and platform shares the same endianness, you can skip the test by specifying std::true_type directly.
+If your data and platform shares the same endianness, you can skip the test by specifying `std::true_type` directly.
 
 ```cpp
-simple::mem_ostream<std::true_type> out;
+binstream::mem_ostream<std::true_type> out;
 out << (int64_t)23 << (int64_t)24 << "Hello world!";
 
-simple::ptr_istream<std::true_type> in(out.get_internal_vec());
+binstream::ptr_istream<std::true_type> in(out.get_internal_vec());
 int64_t num1 = 0, num2 = 0;
 std::string str;
 in >> num1 >> num2 >> str;
@@ -92,8 +92,8 @@ cout << num1 << "," << num2 << "," << str << endl;
 
 ## Advantages of compile-time check
 
-* For same_endian_type = true_type, the swap function is a empty function which is optimised away.
-* For same_endian_type = false_type, the swapping is done without any prior runtime check cost.
+* For `same_endian_type = true_type`, the swap function is a empty function which is optimised away.
+* For `same_endian_type = false_type`, the swapping is done without any prior runtime check cost.
 
 ## Disadvantages of compile-time check
 
